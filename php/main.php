@@ -96,7 +96,7 @@ function pageGallery($title, $postTypes=[], $amount=3, $categories = [], $speed 
 		
 		?>
 		<article class="page-gallery-article">
-			<h3 class="page-gallery-title"><?php echo $title;?></h3>
+			<h3 class="page-gallery-title"><?php echo esc_attr($title);?></h3>
 			<p>No pages found...</p>
 		</article>
 		<?php
@@ -114,8 +114,8 @@ function pageGallery($title, $postTypes=[], $amount=3, $categories = [], $speed 
 		$style	= "background-color: $backgroundColor;";
 	}
 	?>
-	<article class="page-gallery-article" data-posttypes='<?php echo json_encode($postTypes);?>' data-categories='<?php echo json_encode($categories);?>' data-speed='<?php echo $speed;?>' style='<?php echo $style;?>'>
-		<h3 class="page-gallery-title"><?php echo $title;?></h3>
+	<article class="page-gallery-article" data-posttypes='<?php echo json_encode($postTypes);?>' data-categories='<?php echo json_encode($categories);?>' data-speed='<?php echo esc_attr($speed);?>' style='<?php echo esc_attr($style);?>'>
+		<h3 class="page-gallery-title"><?php echo esc_attr($title);?></h3>
 		<div class="row">
 		<?php
 		while($amount > 0) {
@@ -144,15 +144,15 @@ function pageGallery($title, $postTypes=[], $amount=3, $categories = [], $speed 
 				<div class="card card-profile card-plain">
 					<div class="col-md-5">
 						<div class="card-image">
-							<a href='<?php echo $pageUrl;?>'>
-								<img class='img' src='<?php echo $pictureUrl;?>' alt='' title='<?php echo $title;?>' loading='lazy'>
+							<a href='<?php echo esc_url($pageUrl);?>'>
+								<img class='img' src='<?php echo esc_url($pictureUrl);?>' alt='' title='<?php echo esc_attr($title);?>' loading='lazy'>
 							</a>
 						</div>
 					</div>
 					<div class="col-md-7">
 						<div class="content">
-							<a href='<?php echo $pageUrl;?>'>
-								<h4 class='card-title'><?php echo $title;?></h4>
+							<a href='<?php echo esc_url($pageUrl);?>'>
+								<h4 class='card-title'><?php echo esc_attr($title);?></h4>
 								<div class='card-description'><?php echo get_the_excerpt($pageId);?></div>
 							</a>
 						</div>
