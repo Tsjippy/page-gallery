@@ -2,43 +2,43 @@
 namespace TSJIPPY\PAGEGALLERY;
 use TSJIPPY;
 
-add_action('init', __NAMESPACE__.'\blockInit');
+add_action('init', __NAMESPACE__ . '\blockInit');
 function blockInit() {
-	global $post;
+    global $post;
 
-	register_block_type(
-		__DIR__ . '/gallery/build',
-		array(
-			'render_callback' => function($attributes){
-				$categories	= json_decode($attributes['categories'], true);
-				return pageGallery($attributes['title'], $attributes['postTypes'], $attributes['amount'], $categories, $attributes['speed'], true, $attributes['color']);
-			},
-			"attributes"	=>  [
-				'postTypes'	=> [
-					'type'		=> 'array',
-					'default'	=> []
-				],
-				'amount'	=> [
-					'type'		=> 'integer',
-					'default'	=> 3
-				],
-				'categories'	=> [
-					'type'		=> 'string',
-					'default'	=> '{}'
-				],
-				'speed'	=> [
-					'type'		=> 'integer',
-					'default'	=> 60
-				],
-				'title'	=> [
-					'type'		=> 'string',
-					'default'	=> ''
-				],
-				'color' => [
-					'type' 		=> 'string',
-					'default'	=> '#FFFFFF'
-				],
-			]
-		)
-	);
+    register_block_type(
+        __DIR__ . '/gallery/build',
+        array(
+            'render_callback' => function ($attributes) {
+                $categories    = json_decode($attributes['categories'], true);
+                return pageGallery($attributes['title'], $attributes['postTypes'], $attributes['amount'], $categories, $attributes['speed'], true, $attributes['color']);
+            },
+            "attributes"    =>  [
+                'postTypes'    => [
+                    'type'        => 'array',
+                    'default'    => []
+                ],
+                'amount'    => [
+                    'type'        => 'integer',
+                    'default'    => 3
+                ],
+                'categories'    => [
+                    'type'        => 'string',
+                    'default'    => '{}'
+                ],
+                'speed'    => [
+                    'type'        => 'integer',
+                    'default'    => 60
+                ],
+                'title'    => [
+                    'type'        => 'string',
+                    'default'    => ''
+                ],
+                'color' => [
+                    'type'         => 'string',
+                    'default'    => '#FFFFFF'
+                ],
+            ]
+       )
+   );
 }
