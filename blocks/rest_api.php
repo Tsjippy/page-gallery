@@ -1,20 +1,23 @@
 <?php
+
 namespace TSJIPPY\PAGEGALLERY;
+
 use TSJIPPY;
 
 add_action('rest_api_init', __NAMESPACE__ . '\blockRestApi');
-function blockRestApi() {
+function blockRestApi()
+{
 
     // show page gallery
     register_rest_route(
-        RESTAPIPREFIX. '/pagegallery',
+        RESTAPIPREFIX . '/pagegallery',
         '/show_page_gallery',
         array(
             'methods'                 => 'POST',
             'callback'                 => __NAMESPACE__ . '\pageGalleryBlock',
             'permission_callback'     => '__return_true', // Allow non-logged in users to access this endpoint
-       )
-   );
+        )
+    );
 }
 
 /**
@@ -23,7 +26,8 @@ function blockRestApi() {
  * @param \WP_REST_Request $wpRestRequest The REST request object.
  * @return array The page gallery data.
  */
-function pageGalleryBlock($wpRestRequest) {
+function pageGalleryBlock($wpRestRequest)
+{
     $params            = $wpRestRequest->get_params();
 
     if (!is_array($params['categories'])) {
@@ -53,8 +57,9 @@ add_filter('tsjippy_allowed_rest_api_urls', __NAMESPACE__ . '\restApiUrls');
  * @param array $urls The list of allowed REST API URLs.
  * @return array The updated list of allowed REST API URLs.
  */
-function restApiUrls($urls) {
-    $urls[]        = RESTAPIPREFIX. '/pagegallery/show_page_gallery';
+function restApiUrls($urls)
+{
+    $urls[]        = RESTAPIPREFIX . '/pagegallery/show_page_gallery';
 
     return $urls;
 }

@@ -1,9 +1,12 @@
 <?php
+
 namespace TSJIPPY\PAGEGALLERY;
+
 use TSJIPPY;
 
 add_action('init', __NAMESPACE__ . '\blockInit');
-function blockInit() {
+function blockInit()
+{
     global $post;
 
     register_block_type(
@@ -39,6 +42,6 @@ function blockInit() {
                     'default'    => '#FFFFFF'
                 ],
             ]
-       )
-   );
+        )
+    );
 }
