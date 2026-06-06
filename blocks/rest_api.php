@@ -10,7 +10,7 @@ function blockRestApi()
 
     // show page gallery
     register_rest_route(
-        RESTAPIPREFIX . '/pagegallery',
+        TSJIPPY\RESTAPIPREFIX . '/pagegallery',
         '/show_page_gallery',
         array(
             'methods'                 => 'POST',
@@ -59,7 +59,7 @@ add_filter('tsjippy_allowed_rest_api_urls', __NAMESPACE__ . '\restApiUrls');
  */
 function restApiUrls($urls)
 {
-    $urls[]        = RESTAPIPREFIX . '/pagegallery/show_page_gallery';
+    $urls[]        = TSJIPPY\RESTAPIPREFIX . '/pagegallery/show_page_gallery';
 
     return $urls;
 }
