@@ -36,14 +36,14 @@ function pageGallery($title, $postTypes = [], $amount = 3, $categories = [], $sp
     } else {
         foreach ($postTypes as $type) {
             $args = array(
-                'post_type'            => $type,
+                'post_type'          => $type,
                 'orderby'            => 'rand',
                 'posts_per_page'     => $amount,
                 'exclude'            => [get_the_ID()],
                 'meta_query'         => array(
                     array(
-                        'key'         => '_thumbnail_id',
-                        'compare'     => 'EXISTS'
+                        'key'        => '_thumbnail_id',
+                        'compare'    => 'EXISTS'
                     ),
                 )
             );
