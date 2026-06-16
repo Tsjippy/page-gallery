@@ -50,7 +50,7 @@ function pageGalleryBlock($wpRestRequest)
 }
 
 // Allow non-logged in use
-add_filter('tsjippy_allowed_rest_api_urls', __NAMESPACE__ . '\restApiUrls');
+add_filter('tsjippy-allowed-rest-api-urls', __NAMESPACE__ . '\restApiUrls');
 /**
  * Adds the page gallery URLs to the list of allowed REST API URLs.
  *
