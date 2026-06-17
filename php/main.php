@@ -86,7 +86,7 @@ function pageGallery($title, $postTypes = [], $amount = 3, $categories = [], $sp
                 ];
             }
 
-            $args    = apply_filters('tsjippy-frontpage-post-gallery-posts', $args, $postTypes);
+            $args    = apply_filters('tsjippy-page-gallery-frontpage-posts', $args, $postTypes);
 
             $posts    = array_merge($posts, get_posts($args));
         }
