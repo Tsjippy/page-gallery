@@ -5,7 +5,7 @@ namespace TSJIPPY\PAGEGALLERY;
 /**
  * Plugin Name:          Tsjippy Page Gallery
  * Description:          This plugin adds the posibilty to add a page gallery showcasting pages for extra attention to other posts
- * Version:              10.1.6
+ * Version:              10.1.7
  * Author:               Ewald Harmsen
  * AuthorURI:            harmseninnigeria.nl
  * Requires at least:    6.3
