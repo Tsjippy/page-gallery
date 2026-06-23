@@ -88,7 +88,7 @@ function pageGallery($title, $postTypes = [], $amount = 3, $categories = [], $sp
 
             $args    = apply_filters('tsjippy-page-gallery-frontpage-posts', $args, $postTypes);
 
-            $posts    = array_merge($posts, get_posts($args));
+            $posts   = array_merge($posts, get_posts($args));
         }
     }
 
@@ -97,12 +97,12 @@ function pageGallery($title, $postTypes = [], $amount = 3, $categories = [], $sp
             return '';
         }
 
-?>
+        ?>
         <article class="page-gallery-article">
             <h3 class="page-gallery-title"><?php echo esc_attr($title); ?></h3>
             <p>No pages found...</p>
         </article>
-    <?php
+        <?php
         return ob_get_clean();
     }
 
