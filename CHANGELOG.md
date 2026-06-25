@@ -4,6 +4,7 @@
 ### Added
 
 ### Changed
+- frontend content hook changed: frontend content hook
 
 ### Fixed
 
