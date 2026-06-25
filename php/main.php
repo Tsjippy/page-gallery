@@ -39,7 +39,6 @@ function pageGallery($title, $postTypes = [], $amount = 3, $categories = [], $sp
                 'post_type'          => $type,
                 'orderby'            => 'rand',
                 'posts_per_page'     => $amount,
-                'exclude'            => [get_the_ID()],
                 'meta_query'         => array(
                     array(
                         'key'        => '_thumbnail_id',
@@ -89,6 +88,13 @@ function pageGallery($title, $postTypes = [], $amount = 3, $categories = [], $sp
             $args    = apply_filters('tsjippy-page-gallery-frontpage-posts', $args, $postTypes);
 
             $posts   = array_merge($posts, get_posts($args));
+
+            // Remove the current post
+            foreach($posts as $index => $post){
+                if($post->ID == get_the_ID()){
+                    unset($posts[$index]);
+                }
+            }
         }
     }
 
