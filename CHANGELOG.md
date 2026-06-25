@@ -5,6 +5,7 @@
 
 ### Changed
 - frontend content hook changed: frontend content hook
+- added echo param to page gallery function
 
 ### Fixed
 
