@@ -4,12 +4,17 @@
 ### Added
 
 ### Changed
-- frontend content hook changed: frontend content hook
-- added echo param to page gallery function
 
 ### Fixed
 
 ### Updated
+
+## [10.2.4] - 2026-06-25
+
+
+### Changed
+- frontend content hook changed: frontend content hook
+- added echo param to page gallery function
 
 ## [10.2.3] - 2026-06-24
 
