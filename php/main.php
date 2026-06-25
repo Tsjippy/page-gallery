@@ -8,22 +8,28 @@ use TSJIPPY;
  * Function to show a gallery of 3 ministries
  * They will only be listed if they have a featured image!
  *
- * @param    array    $postTypes        Array of posttypes to include or an array of fixed post ids
- * @param    int        $amount            The amount of pages to show
- * @param    array    $categories        The categories of this page type to include. Should be an multidimensional array of taxonmies indexed by postypes containing categories
- * @param    int        $speed            The speed the pages should change
- * @param    bool    $showIfEmpty    Whether or not show if no pages are found, default true
+ * @param    string  $title           The title to use
+ * @param    array   $postTypes       Array of posttypes to include or an array of fixed post ids
+ * @param    int     $amount          The amount of pages to show
+ * @param    array   $categories      The categories of this page type to include. Should be an multidimensional array of taxonmies indexed by postypes containing categories
+ * @param    int     $speed           The speed the pages should change
+ * @param    bool    $showIfEmpty     Whether or not show if no pages are found, default true
+ * @param    string  $backgroundColor The background color to use default #FFFFFF
+ * @param    bool    $gradient        Wheter to use a gradient for the background color, default false
+ * @param    bool    $echo            Whether to eecho to screen or return html, default false
  *
  * @return    string                    The html
  */
-function pageGallery($title, $postTypes = [], $amount = 3, $categories = [], $speed = 60, $showIfEmpty = true, $backgroundColor = '#FFFFFF', $gradient = false)
+function pageGallery($title, $postTypes = [], $amount = 3, $categories = [], $speed = 60, $showIfEmpty = true, $backgroundColor = '#FFFFFF', $gradient = false, $echo=false)
 {
     global $post;
 
     wp_enqueue_script('tsjippy_page_gallery_script');
     wp_enqueue_style('tsjippy_page_gallery_style');
 
-    ob_start();
+    if(!$echo){
+        ob_start();
+    }
 
     $posts    = [];
 
@@ -109,7 +115,12 @@ function pageGallery($title, $postTypes = [], $amount = 3, $categories = [], $sp
             <p>No pages found...</p>
         </article>
         <?php
-        return ob_get_clean();
+
+        if($echo){
+            return;
+        }else{
+            return ob_get_clean();
+        }
     }
 
     // make sure we only try to display as many pages as available
@@ -179,5 +190,12 @@ function pageGallery($title, $postTypes = [], $amount = 3, $categories = [], $sp
     // restore original post
     wp_reset_postdata();
 
-    return ob_get_clean();
+    if(!$echo){
+        return ob_get_clean();
+    }
 }
+
+
+do_action('tsjippy-theme-after-news-gallery', function($title, $postTypes, $amount, $includedCategories, $speed, $showIfEmpty){
+    pageGallery($title, $postTypes, $amount, $includedCategories, $speed, $showIfEmpty, true);
+}, 10, 6);
