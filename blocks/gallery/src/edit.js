@@ -251,23 +251,23 @@ const Edit = ({ setAttributes, attributes, context }) => {
           </PanelBody>
           <PanelBody title="Properties" initialOpen={false}>
             <InputControl
-              label={__("Title", "sim")}
+              label={__("Title", "tsjippy")}
               isPressEnterToChange={true}
               value={attributes.title}
               onChange={(value) => setAttributes({ title: value })}
             />
-            {__("How many pages should be shown at once", "sim")}
+            {__("How many pages should be shown at once", "tsjippy")}
             <NumberControl
-              label={__("Page count", "sim")}
+              label={__("Page count", "tsjippy")}
               value={attributes.amount}
               onChange={(val) => setAttributes({ amount: parseInt(val) })}
               min={1}
               max={12}
             />
             <br></br>
-            {__("How often should we refresh in seconds", "sim")}
+            {__("How often should we refresh in seconds", "tsjippy")}
             <NumberControl
-              label={__("Refresh rate", "sim")}
+              label={__("Refresh rate", "tsjippy")}
               value={attributes.speed}
               onChange={(val) => setAttributes({ speed: parseInt(val) })}
               min={30}
