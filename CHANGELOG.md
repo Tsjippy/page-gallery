@@ -8,6 +8,7 @@
 ### Fixed
 
 ### Updated
+- page gallery block
 
 ## [10.3.0] - 2026-07-06
 
