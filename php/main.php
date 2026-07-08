@@ -34,8 +34,10 @@ function pageGallery($title, $postTypes = [], $amount = 3, $categories = [], $sp
     $posts    = [];
 
     if (empty($postTypes) || !is_array($postTypes)) {
-        return '';
-    } elseif (is_numeric($postTypes[0])) {
+        $postTypes  = get_post_types();
+    }
+    
+    if (is_numeric($postTypes[0] ?? '')) {
         foreach ($postTypes as $postId) {
             $posts[]    = get_post($postId);
         }
@@ -94,18 +96,11 @@ function pageGallery($title, $postTypes = [], $amount = 3, $categories = [], $sp
             $args    = apply_filters('tsjippy-page-gallery-frontpage-posts', $args, $postTypes);
 
             $posts   = array_merge($posts, get_posts($args));
-
-            // Remove the current post
-            foreach($posts as $index => $post){
-                if($post->ID == get_the_ID()){
-                    unset($posts[$index]);
-                }
-            }
         }
     }
 
     if (empty($posts)) {
-        if ($showIfEmpty) {
+        if (!$showIfEmpty) {
             return '';
         }
 

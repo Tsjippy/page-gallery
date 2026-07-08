@@ -1,1 +1,594 @@
-(()=>{"use strict";var e,t={93(e,t,s){const n=window.wp.blocks,l=window.wp.i18n,r=window.wp.blockEditor,a=window.wp.apiFetch;var o=s.n(a);const i=window.wp.element,p=window.wp.components,c=window.wp.coreData,u=window.wp.data,h=window.ReactJSXRuntime,d=JSON.parse('{"UU":"tsjippy/simpagegallery"}');(0,n.registerBlockType)(d.UU,{icon:"format-gallery",edit:({setAttributes:e,attributes:t,context:s})=>{const n=t.color;let a=t.postTypes,d=JSON.parse(t.categories);const g=s.postType,[m,y]=(0,i.useState)([]),[j,f]=(0,i.useState)({}),[w,x]=(0,i.useState)((0,h.jsxs)(h.Fragment,{children:[" ","Loading... ",(0,h.jsx)(p.Spinner,{})," "]})),[_,b]=(0,i.useState)((0,h.jsxs)(h.Fragment,{children:[" ",(0,h.jsx)("br",{}),(0,h.jsx)(p.Spinner,{})," "]})),[v,O]=(0,i.useState)((0,h.jsxs)(h.Fragment,{children:[" ",(0,h.jsx)("br",{}),(0,h.jsx)(p.Spinner,{})," "]})),[S,C]=(0,i.useState)(!1),k=(0,u.useSelect)(e=>e(c.store).getTaxonomies({per_page:-1}),[]),T=(0,u.useSelect)(e=>e(c.store).getPostTypes({per_page:-1}),[]);return(0,i.useEffect)(()=>{if(null==T||null==k)return;let e=T.filter(e=>!["revision","nav_menu_item","custom_css","customize_changeset","oembed_cache","user_request","wp_block","wp_template","wp_template_part","wp_navigation"].includes(e.slug));y(e);let t={...j};e.map(e=>{let s=k.filter(t=>t.types.includes(e.slug));null==t[e.slug]&&(t[e.slug]={}),s.map(async s=>{t[e.slug][s.slug]=await o()({path:`/${s.rest_namespace}/${s.rest_base}/?per_page=100`})})}),f(t)},[T,k]),(0,i.useEffect)(()=>{!async function(){0!=m.length&&b(m.map(t=>(0,h.jsx)(p.CheckboxControl,{label:t.name,onChange:s=>{!function(t,s){let n=[...a];s?n.includes(t)||n.push(t):n=n.filter(e=>e!=t),e({postTypes:n})}(t.slug,s)},checked:a.includes(t.slug)},t.slug)))}()},[m,t.postTypes]),(0,i.useEffect)(()=>{let t=!0;if(0==Object.keys(j).length)return void O((0,h.jsx)(p.Spinner,{}));let s=[];0==a.length&&null!=j[g]&&e({postTypes:[g]}),a.forEach(n=>{if(s.push((0,h.jsx)("h2",{children:n.charAt(0).toUpperCase()+n.slice(1)})),null==j[n]||0==Object.entries(j[n]).length)return O((0,h.jsx)(p.Spinner,{})),void setTimeout(C,1e3,!S);Object.keys(j[n]).forEach(l=>{s.push(l.charAt(0).toUpperCase()+l.slice(1)),Object.values(j[n][l]).map(r=>{t=!0;try{t=d[n][l].includes(r.slug)}catch(e){t=!1}s.push((0,h.jsx)(p.CheckboxControl,{label:r.name,onChange:t=>{!function(t,s,n,l){let r={...d};null==r[t]&&(r[t]={}),null==r[t][s]&&(r[t][s]=[]),l?r[t][s].includes(n)||r[t][s].push(n):r=r[t][s].filter(e=>e!=n),e({categories:JSON.stringify(r)})}(n,l,r.slug,t)},checked:t},r.id))})})}),O(s)},[j,t.categories,t.postTypes,S]),(0,i.useEffect)(()=>{!async function(){x((0,h.jsxs)(h.Fragment,{children:[" ","Loading... ",(0,h.jsx)(p.Spinner,{})," "]}));const e=await o()({path:tsjippy.restApiPrefix+"/pagegallery/show_page_gallery",method:"POST",data:{postTypes:a,amount:t.amount,categories:d,speed:t.speed,title:t.title}});x(wp.element.RawHTML({children:e}))}()},[t]),(0,h.jsxs)(h.Fragment,{children:[(0,h.jsx)(r.InspectorControls,{children:(0,h.jsxs)(p.Panel,{children:[(0,h.jsx)(p.PanelBody,{title:"Background color",initialOpen:!1,children:(0,h.jsx)(p.PanelRow,{children:(0,h.jsx)(p.ColorPicker,{color:n,onChange:t=>e({color:t}),enableAlpha:!0,defaultValue:"#000"})})}),(0,h.jsxs)(p.PanelBody,{title:"Properties",initialOpen:!1,children:[(0,h.jsx)(p.__experimentalInputControl,{label:(0,l.__)("Title","tsjippy"),isPressEnterToChange:!0,value:t.title,onChange:t=>e({title:t})}),(0,l.__)("How many pages should be shown at once","tsjippy"),(0,h.jsx)(p.__experimentalNumberControl,{label:(0,l.__)("Page count","tsjippy"),value:t.amount,onChange:t=>e({amount:parseInt(t)}),min:1,max:12}),(0,h.jsx)("br",{}),(0,l.__)("How often should we refresh in seconds","tsjippy"),(0,h.jsx)(p.__experimentalNumberControl,{label:(0,l.__)("Refresh rate","tsjippy"),value:t.speed,onChange:t=>e({speed:parseInt(t)}),min:30}),(0,h.jsx)("br",{}),"Select the post types you want to include in the gallery:",_,(0,h.jsx)("br",{}),"Select the categories you want from any post type. Leave empty for all",v]})]})}),(0,h.jsx)("div",{...(0,r.useBlockProps)(),children:w})]})},save:()=>null})}},s={};function n(e){var l=s[e];if(void 0!==l)return l.exports;var r=s[e]={exports:{}};return t[e](r,r.exports,n),r.exports}n.m=t,e=[],n.O=(t,s,l,r)=>{if(!s){var a=1/0;for(c=0;c<e.length;c++){for(var[s,l,r]=e[c],o=!0,i=0;i<s.length;i++)(!1&r||a>=r)&&Object.keys(n.O).every(e=>n.O[e](s[i]))?s.splice(i--,1):(o=!1,r<a&&(a=r));if(o){e.splice(c--,1);var p=l();void 0!==p&&(t=p)}}return t}r=r||0;for(var c=e.length;c>0&&e[c-1][2]>r;c--)e[c]=e[c-1];e[c]=[s,l,r]},n.n=e=>{var t=e&&e.__esModule?()=>e.default:()=>e;return n.d(t,{a:t}),t},n.d=(e,t)=>{for(var s in t)n.o(t,s)&&!n.o(e,s)&&Object.defineProperty(e,s,{enumerable:!0,get:t[s]})},n.o=(e,t)=>Object.prototype.hasOwnProperty.call(e,t),(()=>{var e={57:0,350:0};n.O.j=t=>0===e[t];var t=(t,s)=>{var l,r,[a,o,i]=s,p=0;if(a.some(t=>0!==e[t])){for(l in o)n.o(o,l)&&(n.m[l]=o[l]);if(i)var c=i(n)}for(t&&t(s);p<a.length;p++)r=a[p],n.o(e,r)&&e[r]&&e[r][0](),e[r]=0;return n.O(c)},s=globalThis.webpackChunktsjippy_page_gallery=globalThis.webpackChunktsjippy_page_gallery||[];s.forEach(t.bind(null,0)),s.push=t.bind(null,s.push.bind(s))})();var l=n.O(void 0,[350],()=>n(93));l=n.O(l)})();
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/edit.js"
+/*!*********************!*\
+  !*** ./src/edit.js ***!
+  \*********************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/api-fetch */ "@wordpress/api-fetch");
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/server-side-render */ "@wordpress/server-side-render");
+/* harmony import */ var _wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _wordpress_core_data__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/core-data */ "@wordpress/core-data");
+/* harmony import */ var _wordpress_core_data__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_core_data__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__);
+
+
+
+
+
+
+
+
+
+
+const Edit = ({
+  setAttributes,
+  attributes,
+  context
+}) => {
+  const {
+    postTypes,
+    amount,
+    categories,
+    speed,
+    title,
+    color
+  } = attributes;
+  const curPostType = context["postType"];
+
+  /**
+   * Load all post types and their taxonomies
+   */
+  const [availablePostTypes, setAvailablePostTypes] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)([]);
+  const [availableCategories, setAvailableCategories] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)({});
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useEffect)(() => {
+    _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_2___default()({
+      path: "/wp/v2/types?public=true"
+    }).then(res => {
+      console.log('Fetched post types');
+      // Do not keep the post types in this array
+      let postTypes = Object.values(res).filter(type => !["nav_menu_item", "wp_block", "wp_template", "wp_template_part", "wp_navigation", "wp_global_styles", "wp_font_family", "wp_font_face"].includes(type.slug));
+      setAvailablePostTypes(postTypes);
+
+      /**
+       * Get the categories for each post type
+       */
+      let processedTax = [];
+      postTypes.forEach(type => {
+        let cats = availableCategories;
+        if (cats[type.slug] == undefined) {
+          cats[type.slug] = {};
+        }
+        type.taxonomies.forEach(taxonomy => {
+          if (taxonomy == 'category') {
+            taxonomy = 'categories';
+          } else if (taxonomy == 'post_tag') {
+            taxonomy = 'tags';
+          }
+
+          // We don't have to do this more than once
+          if (processedTax.indexOf(taxonomy) > -1) {
+            return;
+          }
+          processedTax.push(taxonomy);
+          _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_2___default()({
+            path: `/wp/v2/${taxonomy}/?per_page=100`
+          }).then(res => {
+            let cats = availableCategories;
+            cats[type.slug][taxonomy] = res;
+            setAvailableCategories(cats);
+          });
+        });
+      });
+    });
+  }, []);
+  const onPostTypeSelect = function (slug, checked) {
+    let selPostTypes = [...postTypes];
+    if (!checked) {
+      selPostTypes = selPostTypes.filter(el => el != slug);
+    } else {
+      selPostTypes.push(slug);
+    }
+    setAttributes({
+      postTypes: selPostTypes
+    });
+  };
+  const onCategorySelect = function (type, tax, slug, checked) {
+    let selCategories = {
+      ...categories
+    };
+    if (selCategories[type] == undefined) {
+      selCategories[type] = {};
+    }
+    if (selCategories[type][tax] == undefined) {
+      selCategories[type][tax] = [];
+    }
+    if (!checked) {
+      selCategories = selCategories[type][tax].filter(el => el != slug);
+    } else if (!selCategories[type][tax].includes(slug)) {
+      selCategories[type][tax].push(slug);
+    }
+    setAttributes({
+      categories: selCategories
+    });
+  };
+
+  // build the checkboxes for the post type selections
+  const getPostTypeCheckboxes = () => {
+    if (availablePostTypes.length == 0) {
+      return [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("br", {}), "Loading..."];
+    }
+    return availablePostTypes.map(c => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__.CheckboxControl, {
+      label: c.name,
+      onChange: checked => {
+        onPostTypeSelect(c.slug, checked);
+      },
+      checked: postTypes.includes(c.slug)
+    }, c.slug));
+  };
+
+  // build the checkboxes for the category selection
+  const getCategoryTypeCheckboxes = () => {
+    if (Object.keys(availableCategories).length == 0) {
+      return [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("br", {}), "Loading..."];
+    }
+    if (postTypes.length == 0) {
+      return "Select a post type first...";
+    }
+    let selected = true;
+    let rendered = ["Select the categories you want from any post type. Leave empty for all", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("br", {})];
+
+    /**
+     * Show the categories for each selected post type
+     */
+    postTypes.forEach(postType => {
+      rendered.push(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("h2", {
+        children: postType.charAt(0).toUpperCase() + postType.slice(1)
+      }));
+      Object.keys(availableCategories[postType]).forEach(tax => {
+        rendered.push(tax.charAt(0).toUpperCase() + tax.slice(1));
+        Object.values(availableCategories[postType][tax]).map(c => {
+          selected = true;
+          try {
+            selected = categories[postType][tax].includes(c.slug);
+          } catch (e) {
+            selected = false;
+          }
+          rendered.push(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__.CheckboxControl, {
+            label: c.name,
+            onChange: checked => {
+              onCategorySelect(postType, tax, c.slug, checked);
+            },
+            checked: selected
+          }, c.id));
+        });
+      });
+    });
+    return rendered;
+  };
+  const getServerSideRenderedContent = () => {
+    const {
+      content,
+      status,
+      error
+    } = (0,_wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_4__.useServerSideRender)({
+      block: "tsjippy/page-gallery",
+      attributes: attributes,
+      urlQueryArgs: {
+        context: 'edit'
+      } // Optional custom query arguments
+    });
+    const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)();
+    let html;
+    if (status === 'loading') {
+      html = "Loading...";
+    } else if (status === 'error') {
+      html = `Error: ${error}`;
+    } else {
+      html = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.RawHTML, {
+        children: content
+      });
+    }
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+      ...blockProps,
+      children: html
+    });
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__.Panel, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__.PanelBody, {
+          title: "Properties",
+          initialOpen: true,
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__.__experimentalInputControl, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Title", "tsjippy"),
+            isPressEnterToChange: true,
+            value: attributes.title,
+            onChange: value => setAttributes({
+              title: value
+            })
+          }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("How many posts should be shown at once", "tsjippy"), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__.__experimentalNumberControl, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Posts Amount", "tsjippy"),
+            value: attributes.amount,
+            onChange: val => setAttributes({
+              amount: parseInt(val)
+            }),
+            min: 1,
+            max: 12
+          }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("How often should we refresh in seconds", "tsjippy"), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__.__experimentalNumberControl, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Refresh rate", "tsjippy"),
+            value: attributes.speed,
+            onChange: val => setAttributes({
+              speed: parseInt(val)
+            }),
+            min: 30
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__.PanelBody, {
+          title: "Background Color",
+          initialOpen: false,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__.ColorPicker, {
+            color: color,
+            onChange: color => setAttributes({
+              color: color
+            }),
+            enableAlpha: true,
+            defaultValue: "#000"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__.PanelBody, {
+          title: "Post Types",
+          initialOpen: false,
+          children: ["Select the post types you want to include in the gallery:", getPostTypeCheckboxes()]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__.PanelBody, {
+          title: "Categories",
+          initialOpen: false,
+          children: getCategoryTypeCheckboxes()
+        })]
+      })
+    }), getServerSideRenderedContent()]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Edit);
+
+/***/ },
+
+/***/ "./src/index.js"
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.scss */ "./src/style.scss");
+/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./edit */ "./src/edit.js");
+/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./block.json */ "./src/block.json");
+
+
+
+
+(0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)(_block_json__WEBPACK_IMPORTED_MODULE_3__.name, {
+  icon: "format-gallery",
+  /**
+   * @see ./edit.js
+   */
+  edit: _edit__WEBPACK_IMPORTED_MODULE_2__["default"],
+  save: () => null
+});
+
+/***/ },
+
+/***/ "./src/style.scss"
+/*!************************!*\
+  !*** ./src/style.scss ***!
+  \************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ },
+
+/***/ "react/jsx-runtime"
+/*!**********************************!*\
+  !*** external "ReactJSXRuntime" ***!
+  \**********************************/
+(module) {
+
+module.exports = window["ReactJSXRuntime"];
+
+/***/ },
+
+/***/ "@wordpress/api-fetch"
+/*!**********************************!*\
+  !*** external ["wp","apiFetch"] ***!
+  \**********************************/
+(module) {
+
+module.exports = window["wp"]["apiFetch"];
+
+/***/ },
+
+/***/ "@wordpress/block-editor"
+/*!*************************************!*\
+  !*** external ["wp","blockEditor"] ***!
+  \*************************************/
+(module) {
+
+module.exports = window["wp"]["blockEditor"];
+
+/***/ },
+
+/***/ "@wordpress/blocks"
+/*!********************************!*\
+  !*** external ["wp","blocks"] ***!
+  \********************************/
+(module) {
+
+module.exports = window["wp"]["blocks"];
+
+/***/ },
+
+/***/ "@wordpress/components"
+/*!************************************!*\
+  !*** external ["wp","components"] ***!
+  \************************************/
+(module) {
+
+module.exports = window["wp"]["components"];
+
+/***/ },
+
+/***/ "@wordpress/core-data"
+/*!**********************************!*\
+  !*** external ["wp","coreData"] ***!
+  \**********************************/
+(module) {
+
+module.exports = window["wp"]["coreData"];
+
+/***/ },
+
+/***/ "@wordpress/data"
+/*!******************************!*\
+  !*** external ["wp","data"] ***!
+  \******************************/
+(module) {
+
+module.exports = window["wp"]["data"];
+
+/***/ },
+
+/***/ "@wordpress/element"
+/*!*********************************!*\
+  !*** external ["wp","element"] ***!
+  \*********************************/
+(module) {
+
+module.exports = window["wp"]["element"];
+
+/***/ },
+
+/***/ "@wordpress/i18n"
+/*!******************************!*\
+  !*** external ["wp","i18n"] ***!
+  \******************************/
+(module) {
+
+module.exports = window["wp"]["i18n"];
+
+/***/ },
+
+/***/ "@wordpress/server-side-render"
+/*!******************************************!*\
+  !*** external ["wp","serverSideRender"] ***!
+  \******************************************/
+(module) {
+
+module.exports = window["wp"]["serverSideRender"];
+
+/***/ },
+
+/***/ "./src/block.json"
+/*!************************!*\
+  !*** ./src/block.json ***!
+  \************************/
+(module) {
+
+module.exports = /*#__PURE__*/JSON.parse('{"schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"tsjippy/page-gallery","version":"0.1.0","title":"Page gallery","category":"widgets","description":"A dynamic gallery of pages","textdomain":"tsjippy","editorScript":"file:./index.js","editorStyle":"file:./index.css","usesContext":["postType"]}');
+
+/***/ }
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		if (!(moduleId in __webpack_modules__)) {
+/******/ 			delete __webpack_module_cache__[moduleId];
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = __webpack_modules__;
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/chunk loaded */
+/******/ 	(() => {
+/******/ 		var deferred = [];
+/******/ 		__webpack_require__.O = (result, chunkIds, fn, priority) => {
+/******/ 			if(chunkIds) {
+/******/ 				priority = priority || 0;
+/******/ 				for(var i = deferred.length; i > 0 && deferred[i - 1][2] > priority; i--) deferred[i] = deferred[i - 1];
+/******/ 				deferred[i] = [chunkIds, fn, priority];
+/******/ 				return;
+/******/ 			}
+/******/ 			var notFulfilled = Infinity;
+/******/ 			for (var i = 0; i < deferred.length; i++) {
+/******/ 				var [chunkIds, fn, priority] = deferred[i];
+/******/ 				var fulfilled = true;
+/******/ 				for (var j = 0; j < chunkIds.length; j++) {
+/******/ 					if ((priority & 1 === 0 || notFulfilled >= priority) && Object.keys(__webpack_require__.O).every((key) => (__webpack_require__.O[key](chunkIds[j])))) {
+/******/ 						chunkIds.splice(j--, 1);
+/******/ 					} else {
+/******/ 						fulfilled = false;
+/******/ 						if(priority < notFulfilled) notFulfilled = priority;
+/******/ 					}
+/******/ 				}
+/******/ 				if(fulfilled) {
+/******/ 					deferred.splice(i--, 1)
+/******/ 					var r = fn();
+/******/ 					if (r !== undefined) result = r;
+/******/ 				}
+/******/ 			}
+/******/ 			return result;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/jsonp chunk loading */
+/******/ 	(() => {
+/******/ 		// no baseURI
+/******/ 		
+/******/ 		// object to store loaded and loading chunks
+/******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
+/******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
+/******/ 		var installedChunks = {
+/******/ 			"index": 0,
+/******/ 			"./style-index": 0
+/******/ 		};
+/******/ 		
+/******/ 		// no chunk on demand loading
+/******/ 		
+/******/ 		// no prefetching
+/******/ 		
+/******/ 		// no preloaded
+/******/ 		
+/******/ 		// no HMR
+/******/ 		
+/******/ 		// no HMR manifest
+/******/ 		
+/******/ 		__webpack_require__.O.j = (chunkId) => (installedChunks[chunkId] === 0);
+/******/ 		
+/******/ 		// install a JSONP callback for chunk loading
+/******/ 		var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
+/******/ 			var [chunkIds, moreModules, runtime] = data;
+/******/ 			// add "moreModules" to the modules object,
+/******/ 			// then flag all "chunkIds" as loaded and fire callback
+/******/ 			var moduleId, chunkId, i = 0;
+/******/ 			if(chunkIds.some((id) => (installedChunks[id] !== 0))) {
+/******/ 				for(moduleId in moreModules) {
+/******/ 					if(__webpack_require__.o(moreModules, moduleId)) {
+/******/ 						__webpack_require__.m[moduleId] = moreModules[moduleId];
+/******/ 					}
+/******/ 				}
+/******/ 				if(runtime) var result = runtime(__webpack_require__);
+/******/ 			}
+/******/ 			if(parentChunkLoadingFunction) parentChunkLoadingFunction(data);
+/******/ 			for(;i < chunkIds.length; i++) {
+/******/ 				chunkId = chunkIds[i];
+/******/ 				if(__webpack_require__.o(installedChunks, chunkId) && installedChunks[chunkId]) {
+/******/ 					installedChunks[chunkId][0]();
+/******/ 				}
+/******/ 				installedChunks[chunkId] = 0;
+/******/ 			}
+/******/ 			return __webpack_require__.O(result);
+/******/ 		}
+/******/ 		
+/******/ 		var chunkLoadingGlobal = globalThis["webpackChunktsjippy_page_gallery"] = globalThis["webpackChunktsjippy_page_gallery"] || [];
+/******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
+/******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["./style-index"], () => (__webpack_require__("./src/index.js")))
+/******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
+/******/ 	
+/******/ })()
+;
+//# sourceMappingURL=index.js.map

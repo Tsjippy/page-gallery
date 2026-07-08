@@ -7,8 +7,6 @@ use TSJIPPY;
 add_action('init', __NAMESPACE__ . '\blockInit');
 function blockInit()
 {
-    global $post;
-
     register_block_type(
         __DIR__ . '/gallery/build',
         array(

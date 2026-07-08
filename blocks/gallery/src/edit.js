@@ -2,6 +2,10 @@ import { __ } from "@wordpress/i18n";
 import { useBlockProps, InspectorControls } from "@wordpress/block-editor";
 import apiFetch from "@wordpress/api-fetch";
 import { useState, useEffect } from "@wordpress/element";
+import { ServerSideRender, useServerSideRender } from '@wordpress/server-side-render';
+import { RawHTML } from '@wordpress/element';
+import { store as coreDataStore } from "@wordpress/core-data";
+import { useSelect } from "@wordpress/data";
 import {
   Panel,
   PanelBody,
@@ -12,277 +16,246 @@ import {
   __experimentalInputControl as InputControl,
   ColorPicker,
 } from "@wordpress/components";
-import { store as coreDataStore } from "@wordpress/core-data";
-import { useSelect } from "@wordpress/data";
 
 const Edit = ({ setAttributes, attributes, context }) => {
-  const color = attributes.color;
-  let selPostTypes = attributes.postTypes;
-  let selCategories = JSON.parse(attributes.categories);
+  const { postTypes, amount, categories, speed, title, color } = attributes;
   const curPostType = context["postType"];
 
-  const [usedPostTypes, setUsedPostTypes] = useState([]);
+  /**
+   * Load all post types and their taxonomies
+   */
+  const [availablePostTypes, setAvailablePostTypes]   = useState([]); 
+  const [availableCategories, setAvailableCategories] = useState({}); 
 
-  const [availableCats, setAvailableCats] = useState({});
-
-  const [html, setHtml] = useState(
-    <>
-      {" "}
-      Loading... <Spinner />{" "}
-    </>,
-  );
-
-  const [postTypeCheckboxes, setPostTypeCheckboxes] = useState(
-    <>
-      {" "}
-      <br></br>
-      <Spinner />{" "}
-    </>,
-  );
-
-  const [catCheckboxes, setCatCheckboxes] = useState(
-    <>
-      {" "}
-      <br></br>
-      <Spinner />{" "}
-    </>,
-  );
-
-  const [trigger, setTrigger] = useState(false); // dummy to fore rerender
-
-  const taxonomies = useSelect((select) => {
-    return select(coreDataStore).getTaxonomies({ per_page: -1 });
-  }, []);
-
-  const postTypes = useSelect((select) => {
-    return select(coreDataStore).getPostTypes({ per_page: -1 });
-  }, []);
-
-  // Get all categories
   useEffect(() => {
-    if (postTypes == null || taxonomies == null) {
-      return;
-    }
-    let usedPostTypes = postTypes.filter(
-      (type) =>
-        ![
-          "revision",
-          "nav_menu_item",
-          "custom_css",
-          "customize_changeset",
-          "oembed_cache",
-          "user_request",
-          "wp_block",
-          "wp_template",
-          "wp_template_part",
-          "wp_navigation",
-        ].includes(type.slug),
-    );
-    setUsedPostTypes(usedPostTypes);
-    let copy = { ...availableCats };
+    apiFetch({ path: "/wp/v2/types?public=true" }).then( res => {
+      console.log('Fetched post types')
+      // Do not keep the post types in this array
+      let postTypes = Object.values(res).filter(
+        (type) =>
+          ![
+            "nav_menu_item",
+            "wp_block",
+            "wp_template",
+            "wp_template_part",
+            "wp_navigation",
+            "wp_global_styles",
+            "wp_font_family",
+            "wp_font_face"
+          ].includes(type.slug),
+      );
 
-    usedPostTypes.map((type) => {
-      let tax = taxonomies.filter((cat) => cat.types.includes(type.slug));
+      setAvailablePostTypes(postTypes);
 
-      if (copy[type.slug] == undefined) {
-        copy[type.slug] = {};
-      }
+      /**
+       * Get the categories for each post type
+       */
+      let processedTax  = [];
+      postTypes.forEach((type) => {
+        let cats = availableCategories;
+          if (cats[type.slug] == undefined) {
+            cats[type.slug] = {};
+          }
 
-      tax.map(async (t) => {
-        copy[type.slug][t.slug] = await apiFetch({
-          path: `/${t.rest_namespace}/${t.rest_base}/?per_page=100`,
+          type.taxonomies.forEach((taxonomy) => {
+            if(taxonomy == 'category'){
+              taxonomy = 'categories';
+            } else if(taxonomy == 'post_tag'){
+              taxonomy = 'tags';
+            }
+
+            // We don't have to do this more than once
+            if(processedTax.indexOf(taxonomy) > -1){
+              return;
+            }
+
+            processedTax.push(taxonomy);
+
+            apiFetch({ path: `/wp/v2/${taxonomy}/?per_page=100`, }).then(res => {
+              let cats = availableCategories;
+              
+              cats[type.slug][taxonomy] = res;
+
+              setAvailableCategories(cats);
+            });
+          });
         });
-      });
     });
-    setAvailableCats(copy);
-  }, [postTypes, taxonomies]);
+  }, []);
 
-  const postTypeSelected = function (slug, checked) {
-    let newPostTypes = [...selPostTypes];
-
+  const onPostTypeSelect = function (slug, checked) {
+    let selPostTypes  = [...postTypes]
     if (!checked) {
-      newPostTypes = newPostTypes.filter((el) => el != slug);
-    } else if (!newPostTypes.includes(slug)) {
-      newPostTypes.push(slug);
+      selPostTypes = selPostTypes.filter((el) => el != slug);
+    } else {
+      selPostTypes.push(slug);
     }
 
-    setAttributes({ postTypes: newPostTypes });
+    setAttributes({ postTypes: selPostTypes });
   };
 
-  const postCatSelected = function (type, tax, slug, checked) {
-    let newSelCategories = { ...selCategories };
+  const onCategorySelect = function (type, tax, slug, checked) {
+    let selCategories = { ...categories };
 
-    if (newSelCategories[type] == undefined) {
-      newSelCategories[type] = {};
+    if (selCategories[type] == undefined) {
+      selCategories[type] = {};
     }
 
-    if (newSelCategories[type][tax] == undefined) {
-      newSelCategories[type][tax] = [];
+    if (selCategories[type][tax] == undefined) {
+      selCategories[type][tax] = [];
     }
 
     if (!checked) {
-      newSelCategories = newSelCategories[type][tax].filter((el) => el != slug);
-    } else if (!newSelCategories[type][tax].includes(slug)) {
-      newSelCategories[type][tax].push(slug);
+      selCategories = selCategories[type][tax].filter((el) => el != slug);
+    } else if (!selCategories[type][tax].includes(slug)) {
+      selCategories[type][tax].push(slug);
     }
-    setAttributes({ categories: JSON.stringify(newSelCategories) });
+
+    setAttributes({ categories: selCategories });
   };
 
   // build the checkboxes for the post type selections
-  useEffect(() => {
-    async function buildCheckboxes() {
-      if (usedPostTypes.length == 0) {
-        return;
-      }
-
-      setPostTypeCheckboxes(
-        usedPostTypes.map((c) => (
-          <CheckboxControl
-            label={c.name}
-            onChange={(checked) => {
-              postTypeSelected(c.slug, checked);
-            }}
-            checked={selPostTypes.includes(c.slug)}
-            key={c.slug}
-          />
-        )),
-      );
+  const getPostTypeCheckboxes = () => {
+    if(availablePostTypes.length == 0){
+      return [
+        <br></br>,
+        "Loading..."
+      ];
     }
-    buildCheckboxes();
-  }, [usedPostTypes, attributes.postTypes]);
+
+    return availablePostTypes.map((c) => (
+      <CheckboxControl
+        label    = {c.name}
+        onChange = {(checked) => { onPostTypeSelect(c.slug, checked); }}
+        checked  = {postTypes.includes(c.slug)}
+        key      = {c.slug}
+      />
+    ))
+  }
 
   // build the checkboxes for the category selection
-  useEffect(() => {
+  const getCategoryTypeCheckboxes = () => {
+    if(Object.keys(availableCategories).length == 0){
+      return [
+        <br></br>,
+        "Loading..."
+      ];
+    }
+
+    if(postTypes.length == 0){
+      return "Select a post type first...";
+    }
+
     let selected = true;
+    let rendered = ["Select the categories you want from any post type. Leave empty for all", <br></br>];
 
-    if (Object.keys(availableCats).length == 0) {
-      setCatCheckboxes(<Spinner />);
-      return;
-    }
-
-    let rendered = [];
-
-    if (selPostTypes.length == 0 && availableCats[curPostType] != undefined) {
-      setAttributes({ postTypes: [curPostType] });
-    }
-
-    selPostTypes.forEach((postType) => {
+    /**
+     * Show the categories for each selected post type
+     */
+    postTypes.forEach((postType) => {
       rendered.push(
         <h2>{postType.charAt(0).toUpperCase() + postType.slice(1)}</h2>,
       );
 
-      if (
-        availableCats[postType] == undefined ||
-        Object.entries(availableCats[postType]).length == 0
-      ) {
-        setCatCheckboxes(<Spinner />);
-
-        // Check every second
-        setTimeout(setTrigger, 1000, !trigger);
-        return;
-      }
-
-      Object.keys(availableCats[postType]).forEach((tax) => {
+      Object.keys(availableCategories[postType]).forEach((tax) => {
         rendered.push(tax.charAt(0).toUpperCase() + tax.slice(1));
 
-        Object.values(availableCats[postType][tax]).map((c) => {
+        Object.values(availableCategories[postType][tax]).map((c) => {
           selected = true;
           try {
-            selected = selCategories[postType][tax].includes(c.slug);
+            selected = categories[postType][tax].includes(c.slug);
           } catch (e) {
             selected = false;
           }
+
           rendered.push(
             <CheckboxControl
-              label={c.name}
-              onChange={(checked) => {
-                postCatSelected(postType, tax, c.slug, checked);
-              }}
-              checked={selected}
-              key={c.id}
+              label    = {c.name}
+              onChange = {(checked) => { onCategorySelect(postType, tax, c.slug, checked); }}
+              checked  = {selected}
+              key      = {c.id}
             />,
           );
         });
       });
     });
 
-    setCatCheckboxes(rendered);
-  }, [availableCats, attributes.categories, attributes.postTypes, trigger]);
+    return rendered;
+  }
 
-  // retrieve the html
-  useEffect(() => {
-    async function getPageGallery() {
-      setHtml(
-        <>
-          {" "}
-          Loading... <Spinner />{" "}
-        </>,
-      );
-      const response = await apiFetch({
-        path: tsjippy.restApiPrefix + "/pagegallery/show_page_gallery",
-        method: "POST",
-        data: {
-          postTypes: selPostTypes,
-          amount: attributes.amount,
-          categories: selCategories,
-          speed: attributes.speed,
-          title: attributes.title,
-        },
-      });
+  const getServerSideRenderedContent = ( ) => {
+    const { content, status, error } = useServerSideRender( {
+        block: "tsjippy/page-gallery",
+        attributes: attributes,
+        urlQueryArgs: { context: 'edit' } // Optional custom query arguments
+    } );
 
-      setHtml(wp.element.RawHTML({ children: response }));
+    const blockProps = useBlockProps();
+
+    let html;
+
+    if ( status === 'loading' ) {
+        html = "Loading...";
     }
-    getPageGallery();
-  }, [attributes]);
+
+    else if ( status === 'error' ) {
+        html = `Error: ${ error }`;
+    }
+
+    else{
+      html  = <RawHTML>{ content }</RawHTML>; 
+    }
+
+    return <div {...blockProps}>
+      { html }
+    </div>;
+  }
 
   return (
     <>
       <InspectorControls>
         <Panel>
-          <PanelBody title="Background color" initialOpen={false}>
-            <PanelRow>
-              <ColorPicker
-                color={color}
-                onChange={(color) => setAttributes({ color: color })}
-                enableAlpha
-                defaultValue="#000"
-              />
-            </PanelRow>
-          </PanelBody>
-          <PanelBody title="Properties" initialOpen={false}>
+          <PanelBody title="Properties" initialOpen={true}>
             <InputControl
-              label={__("Title", "tsjippy")}
-              isPressEnterToChange={true}
-              value={attributes.title}
-              onChange={(value) => setAttributes({ title: value })}
+              label                = {__("Title", "tsjippy")}
+              isPressEnterToChange = {true}
+              value                = {attributes.title}
+              onChange             = {(value) => setAttributes({ title: value })}
             />
-            {__("How many pages should be shown at once", "tsjippy")}
+            {__("How many posts should be shown at once", "tsjippy")}
             <NumberControl
-              label={__("Page count", "tsjippy")}
-              value={attributes.amount}
-              onChange={(val) => setAttributes({ amount: parseInt(val) })}
-              min={1}
-              max={12}
+              label    = {__("Posts Amount", "tsjippy")}
+              value    = {attributes.amount}
+              onChange = {(val) => setAttributes({ amount: parseInt(val) })}
+              min      = {1}
+              max      = {12}
             />
-            <br></br>
             {__("How often should we refresh in seconds", "tsjippy")}
             <NumberControl
-              label={__("Refresh rate", "tsjippy")}
-              value={attributes.speed}
-              onChange={(val) => setAttributes({ speed: parseInt(val) })}
-              min={30}
+              label    = {__("Refresh rate", "tsjippy")}
+              value    = {attributes.speed}
+              onChange = {(val) => setAttributes({ speed: parseInt(val) })}
+              min      = {30}
             />
-            <br></br>
+          </PanelBody>
+          <PanelBody title="Background Color" initialOpen={false}>
+              <ColorPicker
+                color        = {color}
+                onChange     = {(color) => setAttributes({ color: color })}
+                enableAlpha
+                defaultValue = "#000"
+              />
+          </PanelBody>
+          <PanelBody title="Post Types" initialOpen={false}>
             Select the post types you want to include in the gallery:
-            {postTypeCheckboxes}
-            <br></br>
-            Select the categories you want from any post type. Leave empty for
-            all
-            {catCheckboxes}
+            { getPostTypeCheckboxes() }
+          </PanelBody>
+          <PanelBody title="Categories" initialOpen={false}>
+            { getCategoryTypeCheckboxes() }
           </PanelBody>
         </Panel>
       </InspectorControls>
-      <div {...useBlockProps()}>{html}</div>
+      { getServerSideRenderedContent() }
     </>
   );
 };
