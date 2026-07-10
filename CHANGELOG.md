@@ -8,6 +8,11 @@
 ### Fixed
 
 ### Updated
+
+## [10.3.1] - 2026-07-10
+
+
+### Updated
 - page gallery block
 - js
 
