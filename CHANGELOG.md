@@ -9,6 +9,7 @@
 
 ### Updated
 - page gallery block
+- js
 
 ## [10.3.0] - 2026-07-06
 
