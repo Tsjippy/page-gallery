@@ -6,6 +6,13 @@
 ### Changed
 
 ### Fixed
+
+### Updated
+
+## [10.4.1] - 2026-07-13
+
+
+### Fixed
 - show full with
 
 ### Updated
