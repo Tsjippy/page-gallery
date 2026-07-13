@@ -2,7 +2,7 @@
 	"name": "tsjippy-page-gallery",
 	"version": "0.1.0",
 	"description": "A dynamic gallery of pages",
-	"author": "The WordPress Contributors",
+	"author": "tsjippy",
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",
 	"scripts": {
