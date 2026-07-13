@@ -6,6 +6,7 @@
 ### Changed
 
 ### Fixed
+- add attributes in json, add styling for editor
 
 ### Updated
 
