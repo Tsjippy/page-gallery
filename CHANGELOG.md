@@ -4,6 +4,7 @@
 ### Added
 
 ### Changed
+- loading pos categories in block
 
 ### Fixed
 - add attributes in json, add styling for editor
