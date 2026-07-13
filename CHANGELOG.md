@@ -7,6 +7,7 @@
 
 ### Fixed
 - add attributes in json, add styling for editor
+- get posttypes as array
 
 ### Updated
 
