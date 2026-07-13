@@ -78,7 +78,7 @@ const Edit = ({ setAttributes, attributes, context }) => {
               
               cats[type.slug][taxonomy] = res;
 
-              setAvailableCategories(cats);
+              setAvailableCategories({...cats});
             });
           });
         });
@@ -156,8 +156,12 @@ const Edit = ({ setAttributes, attributes, context }) => {
      */
     postTypes.forEach((postType) => {
       rendered.push(
-        <h2>{postType.charAt(0).toUpperCase() + postType.slice(1)}</h2>,
+        <h2><b>{postType.charAt(0).toUpperCase() + postType.slice(1)}</b></h2>,
       );
+
+      if(Object.keys(availableCategories[postType]).length == 0){
+        rendered.push("Loading...");
+      }
 
       Object.keys(availableCategories[postType]).forEach((tax) => {
         rendered.push(tax.charAt(0).toUpperCase() + tax.slice(1));
