@@ -154,7 +154,7 @@ function pageGallery($title, $postTypes = [], $amount = 3, $categories = [], $sp
                 $pictureUrl    = get_the_post_thumbnail_url($pageId);
                 $pageUrl    = get_permalink($pageId);
                 $title        = $post->post_title;
-            ?>
+                ?>
                 <div class="page-gallery">
                     <div class="card card-profile card-plain">
                         <div class="col-md-5">
