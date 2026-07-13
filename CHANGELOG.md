@@ -9,6 +9,7 @@
 - show full with
 
 ### Updated
+- block js
 
 ## [10.4.0] - 2026-07-13
 
