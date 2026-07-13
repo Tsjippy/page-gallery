@@ -4,6 +4,7 @@
 ### Added
 
 ### Changed
+- block rendering
 
 ### Fixed
 
