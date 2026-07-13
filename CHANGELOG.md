@@ -4,13 +4,20 @@
 ### Added
 
 ### Changed
+
+### Fixed
+
+### Updated
+
+## [10.3.9] - 2026-07-13
+
+
+### Changed
 - loading pos categories in block
 
 ### Fixed
 - add attributes in json, add styling for editor
 - get posttypes as array
-
-### Updated
 
 ## [10.3.8] - 2026-07-13
 
