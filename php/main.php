@@ -34,7 +34,7 @@ function pageGallery($title, $postTypes = [], $amount = 3, $categories = [], $sp
     $posts    = [];
 
     if (empty($postTypes) || !is_array($postTypes)) {
-        $postTypes  = get_post_types();
+        $postTypes  =  array_values(get_post_types(['public' => true]));
     }
     
     if (is_numeric($postTypes[0] ?? '')) {
@@ -119,9 +119,9 @@ function pageGallery($title, $postTypes = [], $amount = 3, $categories = [], $sp
     }
 
     // make sure we only try to display as many pages as available
-    $amount    = min(count($posts), $amount);
+    $amount = min(count($posts), $amount);
 
-    $list    = $postTypes;
+    $list   = $postTypes;
 
     if ($gradient) {
         $style    = "background: linear-gradient(-90deg, transparent 0 0.1%, $backgroundColor, transparent 99.9% 100%);";
@@ -142,6 +142,7 @@ function pageGallery($title, $postTypes = [], $amount = 3, $categories = [], $sp
                         if (empty($list)) {
                             $list    = $postTypes;
                         } else {
+                            // Reset index
                             $list    = array_values($list);
                         }
 
