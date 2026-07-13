@@ -4,11 +4,16 @@
 ### Added
 
 ### Changed
-- block rendering
 
 ### Fixed
 
 ### Updated
+
+## [10.3.8] - 2026-07-13
+
+
+### Changed
+- block rendering
 
 ## [10.3.7] - 2026-07-12
 
