@@ -1,1 +1,497 @@
-(()=>{"use strict";var e,t={992(e,t,n){const o=window.wp.blocks,r=window.wp.i18n,l=window.wp.blockEditor,s=window.wp.apiFetch;var a=n.n(s);const i=window.wp.element,p=window.wp.serverSideRender,c=(window.wp.coreData,window.wp.data,window.wp.components),u=window.ReactJSXRuntime,h=JSON.parse('{"UU":"tsjippy-page-gallery/show"}');(0,o.registerBlockType)(h.UU,{icon:"format-gallery",edit:({setAttributes:e,attributes:t,context:n})=>{const{postTypes:o,amount:s,categories:h,speed:d,title:g,color:w}=t,[y,f]=(n.postType,(0,i.useState)([])),[b,_]=(0,i.useState)({});return(0,i.useEffect)(()=>{a()({path:"/wp/v2/types?public=true"}).then(e=>{console.log("Fetched post types");let t=Object.values(e).filter(e=>!["nav_menu_item","wp_block","wp_template","wp_template_part","wp_navigation","wp_global_styles","wp_font_family","wp_font_face"].includes(e.slug));f(t);let n=[];t.forEach(e=>{let t=b;null==t[e.slug]&&(t[e.slug]={}),e.taxonomies.forEach(t=>{"category"==t?t="categories":"post_tag"==t&&(t="tags"),n.indexOf(t)>-1||(n.push(t),a()({path:`/wp/v2/${t}/?per_page=100`}).then(n=>{let o=b;o[e.slug][t]=n,_(o)}))})})})},[]),(0,u.jsxs)(u.Fragment,{children:[(0,u.jsx)(l.InspectorControls,{children:(0,u.jsxs)(c.Panel,{children:[(0,u.jsxs)(c.PanelBody,{title:"Properties",initialOpen:!0,children:[(0,u.jsx)(c.__experimentalInputControl,{label:(0,r.__)("Title","tsjippy"),isPressEnterToChange:!0,value:t.title,onChange:t=>e({title:t})}),(0,r.__)("How many posts should be shown at once","tsjippy"),(0,u.jsx)(c.__experimentalNumberControl,{label:(0,r.__)("Posts Amount","tsjippy"),value:t.amount,onChange:t=>e({amount:parseInt(t)}),min:1,max:12}),(0,r.__)("How often should we refresh in seconds","tsjippy"),(0,u.jsx)(c.__experimentalNumberControl,{label:(0,r.__)("Refresh rate","tsjippy"),value:t.speed,onChange:t=>e({speed:parseInt(t)}),min:30})]}),(0,u.jsx)(c.PanelBody,{title:"Background Color",initialOpen:!1,children:(0,u.jsx)(c.ColorPicker,{color:w,onChange:t=>e({color:t}),enableAlpha:!0,defaultValue:"#000"})}),(0,u.jsxs)(c.PanelBody,{title:"Post Types",initialOpen:!1,children:["Select the post types you want to include in the gallery:",0==y.length?[(0,u.jsx)("br",{}),"Loading..."]:y.map(t=>(0,u.jsx)(c.CheckboxControl,{label:t.name,onChange:n=>{!function(t,n){let r=[...o];n?r.push(t):r=r.filter(e=>e!=t),e({postTypes:r})}(t.slug,n)},checked:o.includes(t.slug)},t.slug))]}),(0,u.jsx)(c.PanelBody,{title:"Categories",initialOpen:!1,children:(()=>{if(0==Object.keys(b).length)return[(0,u.jsx)("br",{}),"Loading..."];if(0==o.length)return"Select a post type first...";let t=!0,n=["Select the categories you want from any post type. Leave empty for all",(0,u.jsx)("br",{})];return o.forEach(o=>{n.push((0,u.jsx)("h2",{children:o.charAt(0).toUpperCase()+o.slice(1)})),Object.keys(b[o]).forEach(r=>{n.push(r.charAt(0).toUpperCase()+r.slice(1)),Object.values(b[o][r]).map(l=>{t=!0;try{t=h[o][r].includes(l.slug)}catch(e){t=!1}n.push((0,u.jsx)(c.CheckboxControl,{label:l.name,onChange:t=>{!function(t,n,o,r){let l={...h};null==l[t]&&(l[t]={}),null==l[t][n]&&(l[t][n]=[]),r?l[t][n].includes(o)||l[t][n].push(o):l=l[t][n].filter(e=>e!=o),e({categories:l})}(o,r,l.slug,t)},checked:t},l.id))})})}),n})()})]})}),(()=>{const{content:e,status:n,error:o}=(0,p.useServerSideRender)({block:"tsjippy-page-gallery/show",attributes:t,urlQueryArgs:{context:"edit"}}),r=(0,l.useBlockProps)();let s;return s="loading"===n?"Loading...":"error"===n?`Error: ${o}`:(0,u.jsx)(i.RawHTML,{children:e}),(0,u.jsx)("div",{...r,children:s})})()]})},save:()=>null})}},n={};function o(e){var r=n[e];if(void 0!==r)return r.exports;var l=n[e]={exports:{}};return t[e](l,l.exports,o),l.exports}o.m=t,e=[],o.O=(t,n,r,l)=>{if(!n){var s=1/0;for(c=0;c<e.length;c++){for(var[n,r,l]=e[c],a=!0,i=0;i<n.length;i++)(!1&l||s>=l)&&Object.keys(o.O).every(e=>o.O[e](n[i]))?n.splice(i--,1):(a=!1,l<s&&(s=l));if(a){e.splice(c--,1);var p=r();void 0!==p&&(t=p)}}return t}l=l||0;for(var c=e.length;c>0&&e[c-1][2]>l;c--)e[c]=e[c-1];e[c]=[n,r,l]},o.n=e=>{var t=e&&e.__esModule?()=>e.default:()=>e;return o.d(t,{a:t}),t},o.d=(e,t)=>{for(var n in t)o.o(t,n)&&!o.o(e,n)&&Object.defineProperty(e,n,{enumerable:!0,get:t[n]})},o.o=(e,t)=>Object.prototype.hasOwnProperty.call(e,t),(()=>{var e={57:0,350:0};o.O.j=t=>0===e[t];var t=(t,n)=>{var r,l,[s,a,i]=n,p=0;if(s.some(t=>0!==e[t])){for(r in a)o.o(a,r)&&(o.m[r]=a[r]);if(i)var c=i(o)}for(t&&t(n);p<s.length;p++)l=s[p],o.o(e,l)&&e[l]&&e[l][0](),e[l]=0;return o.O(c)},n=globalThis.webpackChunktsjippy_page_gallery=globalThis.webpackChunktsjippy_page_gallery||[];n.forEach(t.bind(null,0)),n.push=t.bind(null,n.push.bind(n))})();var r=o.O(void 0,[350],()=>o(992));r=o.O(r)})();
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/edit.js"
+/*!*********************!*\
+  !*** ./src/edit.js ***!
+  \*********************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/api-fetch */ "@wordpress/api-fetch");
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/server-side-render */ "@wordpress/server-side-render");
+/* harmony import */ var _wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _wordpress_core_data__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/core-data */ "@wordpress/core-data");
+/* harmony import */ var _wordpress_core_data__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_core_data__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__);
+
+
+
+
+
+
+
+
+
+
+
+const Edit = ({
+  setAttributes,
+  attributes,
+  context
+}) => {
+  const {
+    postTypes,
+    amount,
+    categories,
+    speed,
+    title,
+    color
+  } = attributes;
+  const curPostType = context["postType"];
+
+  /**
+   * Load all post types and their taxonomies
+   */
+  const [availablePostTypes, setAvailablePostTypes] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)([]);
+  const [availableCategories, setAvailableCategories] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)({});
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useEffect)(() => {
+    _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_2___default()({
+      path: "/wp/v2/types?public=true"
+    }).then(res => {
+      console.log('Fetched post types');
+      // Do not keep the post types in this array
+      let postTypes = Object.values(res).filter(type => !["nav_menu_item", "wp_block", "wp_template", "wp_template_part", "wp_navigation", "wp_global_styles", "wp_font_family", "wp_font_face"].includes(type.slug));
+      setAvailablePostTypes(postTypes);
+
+      /**
+       * Get the categories for each post type
+       */
+      let processedTax = [];
+      postTypes.forEach(type => {
+        let cats = availableCategories;
+        if (cats[type.slug] == undefined) {
+          cats[type.slug] = {};
+        }
+        type.taxonomies.forEach(taxonomy => {
+          if (taxonomy == 'category') {
+            taxonomy = 'categories';
+          } else if (taxonomy == 'post_tag') {
+            taxonomy = 'tags';
+          }
+
+          // We don't have to do this more than once
+          if (processedTax.indexOf(taxonomy) > -1) {
+            return;
+          }
+          processedTax.push(taxonomy);
+          _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_2___default()({
+            path: `/wp/v2/${taxonomy}/?per_page=100`
+          }).then(res => {
+            let cats = availableCategories;
+            cats[type.slug][taxonomy] = res;
+            setAvailableCategories(cats);
+          });
+        });
+      });
+    });
+  }, []);
+  const onPostTypeSelect = function (slug, checked) {
+    let selPostTypes = [...postTypes];
+    if (!checked) {
+      selPostTypes = selPostTypes.filter(el => el != slug);
+    } else {
+      selPostTypes.push(slug);
+    }
+    setAttributes({
+      postTypes: selPostTypes
+    });
+  };
+  const onCategorySelect = function (type, tax, slug, checked) {
+    let selCategories = {
+      ...categories
+    };
+    if (selCategories[type] == undefined) {
+      selCategories[type] = {};
+    }
+    if (selCategories[type][tax] == undefined) {
+      selCategories[type][tax] = [];
+    }
+    if (!checked) {
+      selCategories = selCategories[type][tax].filter(el => el != slug);
+    } else if (!selCategories[type][tax].includes(slug)) {
+      selCategories[type][tax].push(slug);
+    }
+    setAttributes({
+      categories: selCategories
+    });
+  };
+
+  // build the checkboxes for the post type selections
+  const getPostTypeCheckboxes = () => {
+    if (availablePostTypes.length == 0) {
+      return [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("br", {}), "Loading..."];
+    }
+    return availablePostTypes.map(c => /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__.CheckboxControl, {
+      label: c.name,
+      onChange: checked => {
+        onPostTypeSelect(c.slug, checked);
+      },
+      checked: postTypes.includes(c.slug)
+    }, c.slug));
+  };
+
+  // build the checkboxes for the category selection
+  const getCategoryTypeCheckboxes = () => {
+    if (Object.keys(availableCategories).length == 0) {
+      return [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("br", {}), "Loading..."];
+    }
+    if (postTypes.length == 0) {
+      return "Select a post type first...";
+    }
+    let selected = true;
+    let rendered = ["Select the categories you want from any post type. Leave empty for all", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("br", {})];
+
+    /**
+     * Show the categories for each selected post type
+     */
+    postTypes.forEach(postType => {
+      rendered.push(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("h2", {
+        children: postType.charAt(0).toUpperCase() + postType.slice(1)
+      }));
+      Object.keys(availableCategories[postType]).forEach(tax => {
+        rendered.push(tax.charAt(0).toUpperCase() + tax.slice(1));
+        Object.values(availableCategories[postType][tax]).map(c => {
+          selected = true;
+          try {
+            selected = categories[postType][tax].includes(c.slug);
+          } catch (e) {
+            selected = false;
+          }
+          rendered.push(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__.CheckboxControl, {
+            label: c.name,
+            onChange: checked => {
+              onCategorySelect(postType, tax, c.slug, checked);
+            },
+            checked: selected
+          }, c.id));
+        });
+      });
+    });
+    return rendered;
+  };
+  const getServerSideRenderedContent = () => {
+    const {
+      content,
+      status,
+      error
+    } = (0,_wordpress_server_side_render__WEBPACK_IMPORTED_MODULE_4__.useServerSideRender)({
+      block: "tsjippy-page-gallery/show",
+      attributes: attributes,
+      urlQueryArgs: {
+        context: 'edit'
+      } // Optional custom query arguments
+    });
+    const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)();
+    let html;
+    if (status === 'loading') {
+      html = "Loading...";
+    } else if (status === 'error') {
+      html = `Error: ${error}`;
+    } else {
+      html = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.RawHTML, {
+        children: content
+      });
+    }
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("div", {
+      ...blockProps,
+      children: html
+    });
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__.Panel, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__.PanelBody, {
+          title: "Properties",
+          initialOpen: true,
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__.__experimentalInputControl, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Title", "tsjippy"),
+            isPressEnterToChange: true,
+            value: attributes.title,
+            onChange: value => setAttributes({
+              title: value
+            })
+          }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("How many posts should be shown at once", "tsjippy"), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__.__experimentalNumberControl, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Posts Amount", "tsjippy"),
+            value: attributes.amount,
+            onChange: val => setAttributes({
+              amount: parseInt(val)
+            }),
+            min: 1,
+            max: 12
+          }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("How often should we refresh in seconds", "tsjippy"), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__.__experimentalNumberControl, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Refresh rate", "tsjippy"),
+            value: attributes.speed,
+            onChange: val => setAttributes({
+              speed: parseInt(val)
+            }),
+            min: 30
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__.PanelBody, {
+          title: "Background Color",
+          initialOpen: false,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__.ColorPicker, {
+            color: color,
+            onChange: color => setAttributes({
+              color: color
+            }),
+            enableAlpha: true,
+            defaultValue: "#000"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__.PanelBody, {
+          title: "Post Types",
+          initialOpen: false,
+          children: ["Select the post types you want to include in the gallery:", getPostTypeCheckboxes()]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__.PanelBody, {
+          title: "Categories",
+          initialOpen: false,
+          children: getCategoryTypeCheckboxes()
+        })]
+      })
+    }), getServerSideRenderedContent()]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Edit);
+
+/***/ },
+
+/***/ "./src/editor.scss"
+/*!*************************!*\
+  !*** ./src/editor.scss ***!
+  \*************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ },
+
+/***/ "react/jsx-runtime"
+/*!**********************************!*\
+  !*** external "ReactJSXRuntime" ***!
+  \**********************************/
+(module) {
+
+module.exports = window["ReactJSXRuntime"];
+
+/***/ },
+
+/***/ "@wordpress/api-fetch"
+/*!**********************************!*\
+  !*** external ["wp","apiFetch"] ***!
+  \**********************************/
+(module) {
+
+module.exports = window["wp"]["apiFetch"];
+
+/***/ },
+
+/***/ "@wordpress/block-editor"
+/*!*************************************!*\
+  !*** external ["wp","blockEditor"] ***!
+  \*************************************/
+(module) {
+
+module.exports = window["wp"]["blockEditor"];
+
+/***/ },
+
+/***/ "@wordpress/blocks"
+/*!********************************!*\
+  !*** external ["wp","blocks"] ***!
+  \********************************/
+(module) {
+
+module.exports = window["wp"]["blocks"];
+
+/***/ },
+
+/***/ "@wordpress/components"
+/*!************************************!*\
+  !*** external ["wp","components"] ***!
+  \************************************/
+(module) {
+
+module.exports = window["wp"]["components"];
+
+/***/ },
+
+/***/ "@wordpress/core-data"
+/*!**********************************!*\
+  !*** external ["wp","coreData"] ***!
+  \**********************************/
+(module) {
+
+module.exports = window["wp"]["coreData"];
+
+/***/ },
+
+/***/ "@wordpress/data"
+/*!******************************!*\
+  !*** external ["wp","data"] ***!
+  \******************************/
+(module) {
+
+module.exports = window["wp"]["data"];
+
+/***/ },
+
+/***/ "@wordpress/element"
+/*!*********************************!*\
+  !*** external ["wp","element"] ***!
+  \*********************************/
+(module) {
+
+module.exports = window["wp"]["element"];
+
+/***/ },
+
+/***/ "@wordpress/i18n"
+/*!******************************!*\
+  !*** external ["wp","i18n"] ***!
+  \******************************/
+(module) {
+
+module.exports = window["wp"]["i18n"];
+
+/***/ },
+
+/***/ "@wordpress/server-side-render"
+/*!******************************************!*\
+  !*** external ["wp","serverSideRender"] ***!
+  \******************************************/
+(module) {
+
+module.exports = window["wp"]["serverSideRender"];
+
+/***/ },
+
+/***/ "./src/block.json"
+/*!************************!*\
+  !*** ./src/block.json ***!
+  \************************/
+(module) {
+
+module.exports = /*#__PURE__*/JSON.parse('{"schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"tsjippy-page-gallery/show","version":"0.1.0","title":"Page gallery","category":"widgets","description":"A dynamic gallery of pages","textdomain":"tsjippy","editorScript":"file:./index.js","editorStyle":"file:./index.css","usesContext":["postType"],"attributes":{"postTypes":{"type":"array","default":[]},"amount":{"type":"integer","default":10},"categories":{"type":"array","default":[]},"speed":{"type":"integer","default":3},"title":{"type":"string","default":""},"color":{"type":"string","default":""},"gradient":{"type":"boolean","default":false}}}');
+
+/***/ }
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		if (!(moduleId in __webpack_modules__)) {
+/******/ 			delete __webpack_module_cache__[moduleId];
+/******/ 			var e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
+(() => {
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./edit */ "./src/edit.js");
+/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./block.json */ "./src/block.json");
+
+
+
+(0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)(_block_json__WEBPACK_IMPORTED_MODULE_2__.name, {
+  icon: "format-gallery",
+  /**
+   * @see ./edit.js
+   */
+  edit: _edit__WEBPACK_IMPORTED_MODULE_1__["default"],
+  save: () => null
+});
+})();
+
+/******/ })()
+;
+//# sourceMappingURL=index.js.map

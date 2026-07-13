@@ -17,6 +17,8 @@ import {
   ColorPicker,
 } from "@wordpress/components";
 
+import './editor.scss';
+
 const Edit = ({ setAttributes, attributes, context }) => {
   const { postTypes, amount, categories, speed, title, color } = attributes;
   const curPostType = context["postType"];

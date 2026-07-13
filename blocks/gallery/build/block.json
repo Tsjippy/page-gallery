@@ -11,5 +11,35 @@
   "editorStyle": "file:./index.css",
   "usesContext": [
     "postType"
-  ]
+  ],
+  "attributes": {
+    "postTypes": {
+      "type": "array",
+      "default": []
+    },
+    "amount": {
+      "type": "integer",
+      "default": 10
+    },
+    "categories": {
+      "type": "array",
+      "default": []
+    },
+    "speed": {
+      "type": "integer",
+      "default": 3
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "color": {
+      "type": "string",
+      "default": ""
+    },
+    "gradient": {
+      "type": "boolean",
+      "default": false
+    }
+  }
 }
