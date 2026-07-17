@@ -86,11 +86,17 @@ function pageGallery($title, $postTypes = [], $amount = 3, $categories = [], $sp
                     ];
                 }
 
-                $args['tax_query']    = [
-                    'relation' => 'AND',
-                    $isPublicQuery,
-                    $args['tax_query']
-                ];
+                if(empty($args['tax_query'])){
+                    $args['tax_query']    = [
+                        $isPublicQuery
+                    ];
+                }else{
+                    $args['tax_query']    = [
+                        'relation' => 'AND',
+                        $isPublicQuery,
+                        $args['tax_query']
+                    ];
+                }
             }
 
             $args    = apply_filters('tsjippy-page-gallery-frontpage-posts', $args, $postTypes);
