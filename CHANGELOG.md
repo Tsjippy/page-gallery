@@ -4,11 +4,16 @@
 ### Added
 
 ### Changed
-- misitries to pages
 
 ### Fixed
 
 ### Updated
+
+## [10.5.4] - 2026-09-09
+
+
+### Changed
+- misitries to pages
 
 ## [10.5.3] - 2026-09-03
 
