@@ -4,6 +4,7 @@
 ### Added
 
 ### Changed
+- misitries to pages
 
 ### Fixed
 
