@@ -5,7 +5,7 @@ namespace TSJIPPY\PAGEGALLERY;
 use TSJIPPY;
 
 /**
- * Function to show a gallery of 3 ministries
+ * Function to show a gallery of 3 pages
  * They will only be listed if they have a featured image!
  *
  * @param    string  $title           The title to use
