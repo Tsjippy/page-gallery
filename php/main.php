@@ -24,7 +24,7 @@ function pageGallery($title, $postTypes = [], $amount = 3, $categories = [], $sp
 {
     global $post;
 
-    wp_enqueue_script('tsjippy_page_gallery_script');
+    wp_enqueue_script_module('@tsjippy/page_gallery_script');
     wp_enqueue_style('tsjippy_page_gallery_style');
 
     if(!$echo){

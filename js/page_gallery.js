@@ -1,3 +1,8 @@
+import{
+  fetchRestApi
+} from "../../tsjippy-forms/js/form_submit_functions.js";
+
+
 document.addEventListener("DOMContentLoaded", () => {
   console.log("Page gallery.js loaded");
   document.querySelectorAll(".page-gallery-article").forEach((gallery) => {
@@ -24,7 +29,7 @@ let reloadPageGallery = async function (gallery, first = false) {
       "title",
       gallery.querySelector(".page-gallery-title").textContent,
     );
-    var response = await FormSubmit.fetchRestApi(
+    var response = await fetchRestApi(
       "pagegallery/show_page_gallery",
       formData,
       false,
