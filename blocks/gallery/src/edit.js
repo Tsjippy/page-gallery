@@ -31,7 +31,6 @@ const Edit = ({ setAttributes, attributes, context }) => {
 
   useEffect(() => {
     apiFetch({ path: "/wp/v2/types?public=true" }).then( res => {
-      console.log('Fetched post types')
       // Do not keep the post types in this array
       let postTypes = Object.values(res).filter(
         (type) =>
